@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Numerics;
+using System.Text.RegularExpressions;
 
 using Dalamud.Bindings.ImGui;
 
@@ -21,6 +22,7 @@ namespace Pathfinder.Interface.Windows;
 
 [LocalService]
 public class OverlayWindow : Window, IDisposable {
+	private const string RePattern = @"\/[^\/]*\.mdl";
 	private readonly ObjectUiCtx _ctx;
 	
 	private readonly ConfigService _config;
@@ -138,17 +140,24 @@ public class OverlayWindow : Window, IDisposable {
 			return;
 		
 		this._ctx.SetHovered(info);
+		var paths = info.Models.Select(mdl => mdl.Path).ToList();
         
 		var color = dot.ColorOverride ? dot.Color : config.GetColor(info.FilterType);
 		ImGui.BeginTooltip();
 		ImGui.PushStyleColor(ImGuiCol.Text, color);
-		ImGui.Text(info.GetItemTypeString());
+		ImGui.Text($"{info.GetItemTypeString()} ({info.Distance.ToString("0.00")}y)");
+		foreach (var path in paths) {
+			Match m = Regex.Match(path, RePattern);
+			if (m.Success)
+				ImGui.Text($"  ...{m.Value}");
+		}
+
 		ImGui.PopStyleColor();
 		ImGui.EndTooltip();
 		
 		ImGui.SetNextFrameWantCaptureMouse(true);
 		if (ImGui.IsMouseClicked(ImGuiMouseButton.Left))
-			this._wis.SetClipboardPaths(info.Models.Select(mdl => mdl.Path).ToList());
+			this._wis.SetClipboardPaths(paths);
 	}
 	
 	// Hover line
