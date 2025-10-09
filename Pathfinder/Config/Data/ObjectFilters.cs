@@ -9,7 +9,7 @@ public enum WorldObjectType {
 	BgObject = 0x1,
 	Terrain = 0x2,
 	Chara = 0x4,
-	__Vfx = 0x8, // Reserved
+	Vfx = 0x8, // Reserved
 	
 	Human = 0x10,
 	DemiHuman = 0x20,
@@ -18,7 +18,7 @@ public enum WorldObjectType {
 	
 	__Sound = 0x100, // Reserved
 	
-	All = 0x1FF
+	All = 0x207
 }
 
 public class ObjectFilters {

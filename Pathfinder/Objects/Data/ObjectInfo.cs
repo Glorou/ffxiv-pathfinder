@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Numerics;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 using FFXIVClientStructs.FFXIV.Client.Graphics.Scene;
+using FFXIVClientStructs.FFXIV.Client.System.Resource.Handle;
+
 using Object = FFXIVClientStructs.FFXIV.Client.Graphics.Scene.Object;
 using ModelType = FFXIVClientStructs.FFXIV.Client.Graphics.Scene.CharacterBase.ModelType;
 
@@ -61,6 +64,10 @@ public class ObjectInfo {
 				this.ReadTerrain(ptr.Cast<Terrain>());
 				this.FilterType = WorldObjectType.Terrain;
 				break;
+			case ObjectType.VfxObject:
+				this.ReadVfx(ptr.Cast<VfxObject>());
+				this.FilterType = WorldObjectType.Vfx;
+				break;
 			case ObjectType.CharacterBase:
 				this.ReadCharaBase(ptr.Cast<CharacterBase>());
 				this.FilterFlags = WorldObjectType.Chara;
@@ -96,6 +103,30 @@ public class ObjectInfo {
 
 	private unsafe void ReadTerrain(Pointer<Terrain> ptr) {
 		var resource = ptr.Data->ResourceHandle;
+		if (resource != null)
+			this.AddModel(resource->FileName.ToString());
+	}
+	
+	// VfxObject handler
+	[StructLayout(LayoutKind.Explicit, Size = 0x340)]
+	public struct VfxObject {
+		[FieldOffset(0)] public Object Object;
+
+		[FieldOffset(0x260)] public Vector4 Color;
+
+		[FieldOffset(0x2A0)] public unsafe VfxResourceInstance* ResourceInstance;
+	}
+	[StructLayout(LayoutKind.Explicit, Size = 0xC0)]
+	public struct VfxResourceInstance {
+		[FieldOffset(0)] public unsafe nint* __vfTable;
+
+		[FieldOffset(0x60)] public unsafe ResourceHandle* Handle;
+	}
+
+	private unsafe void ReadVfx(Pointer<VfxObject> ptr) {
+		var instance = ptr.Data->ResourceInstance;
+		if (instance == null) return;
+		var resource = instance->Handle;
 		if (resource != null)
 			this.AddModel(resource->FileName.ToString());
 	}

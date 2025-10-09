@@ -25,7 +25,8 @@ public class FiltersPopup {
 
 		ImGui.TableSetColumnIndex(0);
 		this.DrawFilterFlag(config, WorldObjectType.Terrain);
-		this.DrawFilterFlag(config, WorldObjectType.BgObject);
+		this.DrawFilterFlag(config, WorldObjectType.BgObject);;
+		this.DrawFilterFlag(config, WorldObjectType.Vfx);
 		this.DrawFilterFlag(config, WorldObjectType.Chara, "Characters");
 
 		if (showChara) {
