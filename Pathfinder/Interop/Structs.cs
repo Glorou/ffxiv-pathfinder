@@ -6,9 +6,9 @@ using System.Numerics;
 namespace Pathfinder.Interop;
 
 // VfxObject :: GameObject -> 2A0 (VfxResourceInstance)
-// 2A0 -> 08
-// 08 -> 18 for ApricotResourceHandle::DefaultResourceHandle::ResourceHandle
-// ApricotResourceHandle -> 48 = path
+// VfxResourceInstance -> 08 (Unk)
+// Unk -> 18 (ApricotResourceHandle::ResourceHandle)
+// ApricotResourceHandle -> 48 (FilePath)
 
 [StructLayout(LayoutKind.Explicit, Size = 0x380)]
 public struct VfxObject {
