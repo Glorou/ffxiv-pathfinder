@@ -71,6 +71,7 @@ public class ResultsTable {
 		
 		ImGui.TableNextRow();
 
+		// todo: fix pushpop styling here
 		if (useColors) {
 			var color = config.GetColor(info.FilterType);
 			ImGui.PushStyleColor(ImGuiCol.Text, color);
