@@ -1,13 +1,29 @@
-<Project Sdk="Dalamud.NET.Sdk/13.0.0">
+<Project Sdk="Dalamud.NET.Sdk/14.0.0">
 	<PropertyGroup>
 		<Authors>Chirp + Bwuny</Authors>
-		<Version>0.1.4</Version>
+		<Version>0.1.5</Version>
 		<Product>FFXIV Pathfinder</Product>
 		<PackageProjectUrl>https://github.com/ktisis-tools/ffxiv-pathfinder</PackageProjectUrl>
 	</PropertyGroup>
 
+    <PropertyGroup>
+        <Author>Chirp + Bwuny</Author>
+        <Name>Pathfinder</Name>
+        <InternalName>Pathfinder</InternalName>
+        <Punchline>Visualizer for nearby model paths. Adds +5 to perception.</Punchline>
+        <Description>A tool for visually locating any model path in the game world.</Description>
+        <AssemblyVersion>0.1.5</AssemblyVersion>
+        <RepoUrl>https://github.com/ktisis-tools/ffxiv-pathfinder</RepoUrl>
+        <IconUrl>https://raw.githubusercontent.com/ktisis-tools/ffxiv-pathfinder/main/icon.png</IconUrl>
+        <ApplicableVersion>any</ApplicableVersion>
+        <Tags>pathfinder;resources;models;paths;mdl;vfx</Tags>
+        <DalamudApiLevel>14</DalamudApiLevel>
+        <TestingDalamudApiLevel>14</TestingDalamudApiLevel>
+        <AcceptsFeedback>true</AcceptsFeedback>
+    </PropertyGroup>
+
 	<PropertyGroup>
-		<TargetFramework>net9.0-windows</TargetFramework>
+		<TargetFramework>net10.0-windows</TargetFramework>
 		<Platforms>x64</Platforms>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
@@ -23,6 +39,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
 	</ItemGroup>
 </Project>

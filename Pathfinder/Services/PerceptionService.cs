@@ -15,11 +15,13 @@ namespace Pathfinder.Services;
 [GlobalService]
 public class PerceptionService {
 	private readonly IClientState _state;
+	private readonly IObjectTable _objectTable;
 	private readonly ChatService _chat;
 	private readonly IUiBuilder _ui;
 	
-	public PerceptionService(IClientState state, ChatService chat, IUiBuilder ui) {
+	public PerceptionService(IClientState state, IObjectTable objectTable, ChatService chat, IUiBuilder ui) {
 		this._state = state;
+		this._objectTable = objectTable;
 		this._chat = chat;
 		this._ui = ui;
 	}
@@ -35,7 +37,7 @@ public class PerceptionService {
 
 	private bool IsPlayerActive() => this._state.IsLoggedIn && !(this._ui.CutsceneActive || this._state.IsGPosing);
 
-	private Vector3? GetPlayerPosition() => this.IsPlayerActive() ? this._state.LocalPlayer?.Position : null;
+	private Vector3? GetPlayerPosition() => this.IsPlayerActive() ? this._objectTable.LocalPlayer?.Position : null;
 
 	private unsafe Vector3? GetCameraPosition() {
 		var manager = CameraManager.Instance();
